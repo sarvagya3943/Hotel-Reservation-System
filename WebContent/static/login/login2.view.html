@@ -1,0 +1,20 @@
+<div class="col-md-6 col-md-offset-3" id="login_form">
+    <h2>Login</h2>
+    <form name="form" ng-submit="vm.login()" role="form">
+        <div class="form-group">
+            <label for="emailAddress">Email address</label>
+            <input type="email" name="email" ng-model="vm.user.email" class="form-control" id="emailAddress"  placeholder="Enter Email" required/>
+            <span ng-show="form.email.$dirty && form.email.$error.required" >Email is required</span>
+            <small class="form-text text-muted">We will never share your email with anyone else</small>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" ng-model="vm.user.password" class="form-control" id="password" placeholder="Enter Password" required/>
+            <span ng-show="form.password.$dirty && form.password.$error.required" >Password is required</span>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Login</button>
+            <a href="#/" class="btn btn-link">Cancel</a>
+        </div>
+    </form>
+</div>

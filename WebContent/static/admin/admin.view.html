@@ -1,0 +1,204 @@
+<style>
+#bookListWrapper {
+    width: 100%;
+    padding: 10px;
+}
+
+#bookListWrapper input {
+    width: 25%;
+}
+
+#bookListWrapper .book {
+    border: 1px solid gray;
+    padding: 10px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+#bookListWrapper .book .book-details {
+    margin-left: 160px;
+}
+
+.conte.ng-enter {
+    -webkit-transition: 0.5s linear all;
+    -moz-transition: 0.5s linear all;
+    -o-transition: 0.5s linear all;
+    transition: 0.5s linear all;
+    opacity: 0;
+}
+
+.conte.ng-enter-active {
+    opacity: 1;
+}
+
+.book.ng-leave {
+    -webkit-transition: 0.5s linear all;
+    -moz-transition: 0.5s linear all;
+    -o-transition: 0.5s linear all;
+    transition: 0.5s linear all;
+    opacity: 1;
+    left: 0;
+}
+
+.book.ng-leave-active {
+    opacity: 0;
+    left: 600px;
+}
+
+.book.ng-enter {
+    -webkit-transition: 0.5s linear all;
+    -moz-transition: 0.5s linear all;
+    -o-transition: 0.5s linear all;
+    transition: 0.5s linear all;
+    opacity: 0;
+    left: 600px;
+}
+
+.book.ng-enter-active {
+    opacity: 1;
+    left: 0;
+}
+
+body {
+    color: #fff;
+    font: 600 14px/24px "Open Sans", "HelveticaNeue-Light",
+        "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial,
+        "Lucida Grande", Sans-Serif;
+}
+
+.box {
+    background: #2db34a;
+    border-radius: 6px;
+    cursor: pointer;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    transition-property: background;
+    transition-duration: 1s;
+    transition-timing-function: linear;
+    width: 120px;
+}
+
+.box:hover {
+    background: #ff7b29;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.hero-image {
+    background-image: url("image1.jpg");
+    background-color: #cccccc;
+    height: 500px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.hero-text {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+}
+.bg {
+    /* The image used */
+    background-image: url('/static/admin/hotel-1.jpg');
+
+    /* Full height */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+</style>
+<body>
+
+
+<div layout="column" layout-fill>
+    <md-toolbar>
+        <div ng-if="!vm.isLoggedIn"class="md-toolbar-tools">
+            <a  href = "#/" md-truncate flex>
+                OYO
+            </a>
+            <md-button class="md-raised" href="#/login">
+                Login
+            </md-button>
+            <md-button class="md-raised" href="#/register">
+                Register
+            </md-button>
+        </div>
+        <div ng-if="vm.isLoggedIn"class="md-toolbar-tools">
+            <a  href = "#/" md-truncate flex>
+                OYO
+            </a>
+            <a ng-href="#/user/{{vm.user.userId}}" class="mr-sm-2">{{vm.user.firstname + ' ' + vm.user.lastname}}</a>
+            <md-button class="md-raised" href="#/" ng-click="vm.logout()">
+                Logout
+            </md-button>
+        </div>
+    </md-toolbar>
+</div>
+
+
+
+    <div class="bg">
+        <div class="col-md-6 col-md-offset-3" id="search_form">
+        <p>
+            <font color="blue">Search for Hotels</font>
+        </p>
+        <form name="form" ng-submit="vm.searchAdmin()" role="form">
+            <div class="form-group">
+                <label for="city">City</label> <input type="text" name="city"
+                    ng-model="vm.search.city" class="form-control" id="city"
+                    placeholder="Enter City" />
+            </div>
+            <div class="form-group">
+                <label for="name">Name</label> <input type="text" name="name"
+                    ng-model="vm.search.name" class="form-control" id="name"
+                    placeholder="Enter Name of Hotel" />
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Search</button>
+                 <a href="#/admin/addHotel">
+                        <button type="button" class="btn btn-primary">Add Hotel</button>
+                </a>
+
+            </div>
+        </form>
+    </div></div>
+    <div id="bookListWrapper" 
+        ng-style="width: 50%; background-image: url(/static/images/hotel-1.jfif); margin: auto; margin-top: 40px;">
+        <ul class="list-unstyled">
+            <li class="book" ng-repeat="hotelInfo in vm.hoteldata"
+                style='float: left; display: inline-block; margin-right: 20px; color: grey'>
+                <div class="book-details clearfix">
+                    
+                    
+                    <h3>{{hotelInfo.name}} , </h3>
+                    <h4>in City {{hotelInfo.city}}</h4>
+                    <p><h3> And Hotel ID : {{hotelInfo.hotel_id}}</h3></p>
+                    
+                    <button ng-click="vm.deleteHotel(hotelInfo)"
+                        class="btn btn-info pull-right">Delete</button>
+                    <a href="#/updateHotel/{{hotelInfo.hotel_id}}">
+                        <button type="button" class="btn btn-primary">Update Hotel</button>
+                    </a>
+                    <a href="#/viewBookings/{{hotelInfo.hotel_id}}">
+                        <button type="button" class="btn btn-primary">View Bookings</button>
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+</h3>
+</body>
+</html>

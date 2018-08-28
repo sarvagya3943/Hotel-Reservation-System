@@ -1,0 +1,102 @@
+<div layout="column" layout-fill>
+    <md-toolbar>
+        <div ng-if="!vm.isLoggedIn"class="md-toolbar-tools">
+            <a  href = "#/" md-truncate flex class="logo">
+                <svg width="87" height="30" viewBox="0 0 87 30" xmlns="http://www.w3.org/2000/svg"><path d="M58.7.2H48l-4.7 9-4.6-9H28l10 20v9.3h10.6V20L58.6.3zm13-.2c-8.4 0-15 6.7-15 15s6.6 15 15 15c8.2 0 15-6.7 15-15s-6.8-15-15-15zm0 20.3c-3 0-5.5-2.4-5.5-5.3 0-3 2.4-5.3 5.4-5.3 3 0 5.3 2.3 5.3 5.3s-2.5 5.3-5.4 5.3zM15 0C6.7 0 0 6.7 0 15s6.7 15 15 15 15-6.7 15-15S23.3 0 15 0zm0 20.3c-3 0-5.3-2.4-5.3-5.3 0-3 2.4-5.3 5.3-5.3 3 0 5.3 2.3 5.3 5.3S18 20.3 15 20.3z"></path></svg>
+            </a>
+            <md-button class="md-raised" href="#/login">
+                Login
+            </md-button>
+            <md-button class="md-raised" href="#/register">
+                Register
+            </md-button>
+        </div>
+        <div ng-if="vm.isLoggedIn"class="md-toolbar-tools">
+            <a  href = "#/" md-truncate flex class="logo">
+                <svg width="87" height="30" viewBox="0 0 87 30" xmlns="http://www.w3.org/2000/svg"><path d="M58.7.2H48l-4.7 9-4.6-9H28l10 20v9.3h10.6V20L58.6.3zm13-.2c-8.4 0-15 6.7-15 15s6.6 15 15 15c8.2 0 15-6.7 15-15s-6.8-15-15-15zm0 20.3c-3 0-5.5-2.4-5.5-5.3 0-3 2.4-5.3 5.4-5.3 3 0 5.3 2.3 5.3 5.3s-2.5 5.3-5.4 5.3zM15 0C6.7 0 0 6.7 0 15s6.7 15 15 15 15-6.7 15-15S23.3 0 15 0zm0 20.3c-3 0-5.3-2.4-5.3-5.3 0-3 2.4-5.3 5.3-5.3 3 0 5.3 2.3 5.3 5.3S18 20.3 15 20.3z"></path></svg>
+            </a>
+            <md-icon ng-if="vm.user.gender === 'male'" md-svg-src="static/images/man.svg" ></md-icon>
+            <md-icon ng-if="vm.user.gender !== 'male'" md-svg-src="static/images/girl.svg" ></md-icon>
+            <a ng-href="#/user/{{vm.user.userId}}" class="mr-sm-2">{{vm.user.firstname + ' ' + vm.user.lastname}}</a>
+            <md-button class="md-raised" href="#/" ng-click="vm.logout()">
+                Logout
+            </md-button>
+        </div>
+    </md-toolbar>
+</div>
+<md-content class="md-padding" layout="row" layout-align="center" layout-wrap>
+    <md-card flex="50" >
+        <md-card-header>
+            <md-card-header-text>
+
+                <span class="md-title">Bill Receipt</span>
+            </md-card-header-text>
+        </md-card-header>
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">{{vm.jsonInfo[0].hotel.name}}</span>
+                <span class="md-subhead">{{vm.jsonInfo[0].hotel.city}}</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th>
+                            Guest Name
+                        </th>
+                        <td>
+                            {{vm.user.firstname + ' ' + vm.user.lastname}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Reservation Date
+                        </th>
+                        <td>
+                            {{vm.currentDate}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Check In Date
+                        </th>
+                        <td>
+                            {{vm.search.checkInStr}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Check Out Date
+                        </th>
+                        <td>
+                            {{vm.search.checkOutStr}}
+                        </td>
+                    </tr>
+                    <tr ng-repeat="elem in vm.bookingInfo">
+                        <th>
+                            {{elem.type}} rooms
+                        </th>
+                        <td>
+                            {{elem.rooms}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Total Cost
+                        </th>
+                        <td>
+                            {{vm.totalCost}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button ng-click="vm.reserve()" class="md-primary md-raised">Pay Now </md-button>
+        </md-card-actions>
+    </md-card>
+
+</md-content>
+
+{{vm.bookingStatus}}

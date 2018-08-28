@@ -1,0 +1,85 @@
+
+
+<div layout="column" layout-fill>
+    <md-toolbar>
+        <div ng-if="!vm.isLoggedIn"class="md-toolbar-tools">
+            <a  href = "#/" md-truncate flex class="logo">
+                <svg width="87" height="30" viewBox="0 0 87 30" xmlns="http://www.w3.org/2000/svg"><path d="M58.7.2H48l-4.7 9-4.6-9H28l10 20v9.3h10.6V20L58.6.3zm13-.2c-8.4 0-15 6.7-15 15s6.6 15 15 15c8.2 0 15-6.7 15-15s-6.8-15-15-15zm0 20.3c-3 0-5.5-2.4-5.5-5.3 0-3 2.4-5.3 5.4-5.3 3 0 5.3 2.3 5.3 5.3s-2.5 5.3-5.4 5.3zM15 0C6.7 0 0 6.7 0 15s6.7 15 15 15 15-6.7 15-15S23.3 0 15 0zm0 20.3c-3 0-5.3-2.4-5.3-5.3 0-3 2.4-5.3 5.3-5.3 3 0 5.3 2.3 5.3 5.3S18 20.3 15 20.3z"></path></svg>
+            </a>
+            <md-button class="md-raised" href="#/login">
+                Login
+            </md-button>
+            <md-button class="md-raised" href="#/register">
+                Register
+            </md-button>
+        </div>
+        <div ng-if="vm.isLoggedIn"class="md-toolbar-tools">
+            <a  href = "#/" md-truncate flex class="logo">
+                <svg width="87" height="30" viewBox="0 0 87 30" xmlns="http://www.w3.org/2000/svg"><path d="M58.7.2H48l-4.7 9-4.6-9H28l10 20v9.3h10.6V20L58.6.3zm13-.2c-8.4 0-15 6.7-15 15s6.6 15 15 15c8.2 0 15-6.7 15-15s-6.8-15-15-15zm0 20.3c-3 0-5.5-2.4-5.5-5.3 0-3 2.4-5.3 5.4-5.3 3 0 5.3 2.3 5.3 5.3s-2.5 5.3-5.4 5.3zM15 0C6.7 0 0 6.7 0 15s6.7 15 15 15 15-6.7 15-15S23.3 0 15 0zm0 20.3c-3 0-5.3-2.4-5.3-5.3 0-3 2.4-5.3 5.3-5.3 3 0 5.3 2.3 5.3 5.3S18 20.3 15 20.3z"></path></svg>
+            </a>
+            <md-icon ng-if="vm.user.gender === 'male'" md-svg-src="static/images/man.svg" ></md-icon>
+            <md-icon ng-if="vm.user.gender !== 'male'" md-svg-src="static/images/girl.svg" ></md-icon>
+            <a ng-href="#/user/{{vm.user.userId}}" class="mr-sm-2">{{vm.user.firstname + ' ' + vm.user.lastname}}</a>
+            <md-button class="md-raised" href="#/" ng-click="vm.logout()">
+                Logout
+            </md-button>
+        </div>
+    </md-toolbar>
+</div>
+
+<md-content layout-padding>
+    <form name="form" ng-submit="vm.searchHotels()" role="form">
+        <div layout-gt-sm="row">
+            <div flex="5">
+            </div>
+            <md-input-container>
+                <label for="city">City</label>
+                <input type="text" name="city" ng-model="vm.search.city" id="city"  placeholder="Enter City" required/>
+                <span ng-show="form.city.$dirty && form.city.$error.required" >City is required</span>
+            </md-input-container>
+            <div flex="5">
+            </div>
+            <md-input-container>
+                <label for="checkIn">Enter Check In</label>
+                <md-datepicker name="checkIn" ng-model="vm.search.checkIn" md-min-date="vm.minDate()"  placeholder="Enter CheckIn Date" ng-value="vm.search.checkInStr" id="checkIn" required ></md-datepicker>
+                <span ng-show="form.checkIn.$dirty && form.checkIn.$error.required" >CheckIn date is required</span>
+                <!-- <label for="checkIn">CheckIn date</label>
+                <input type="date" name="checkIn" ng-model="vm.search.checkIn" class="form-control" id="checkIn" placeholder="Enter CheckIn Date" ng-value="vm.search.checkInStr" min="{{vm.date | date:'yyyy-MM-dd'}}" required/>
+                <span ng-show="form.checkIn.$dirty && form.checkIn.$error.required" >CheckIn date is required</span> -->
+            </md-input-container>
+            <div flex="5">
+            </div>
+            <md-input-container>
+                <label for="checkOut">Enter CheckOut </label>
+                <md-datepicker name="checkOut" ng-model="vm.search.checkOut" id="checkOut" placeholder="Enter CheckOut date" ng-value="vm.search.checkOutStr" md-min-date ="vm.minDate()" required></md-datepicker>
+                <span ng-show="form.checkOut.$dirty && form.checkOut.$error.required" >CheckOut date is required</span>
+                <!-- <label for="checkOut">CheckOut date</label>
+                <input type="date" name="checkOut" ng-model="vm.search.checkOut" class="form-control" id="checkOut" placeholder="Enter CheckOut date" ng-value="vm.search.checkOutStr" min="{{vm.date | date:'yyyy-MM-dd'}}" required/>
+                <span ng-show="form.checkOut.$dirty && form.checkOut.$error.required" >CheckOut date is required</span>-->
+            </md-input-container>
+        </div>
+        <div layout="row" layout-align="center">
+            <md-button type="submit" class="md-primary md-raised">
+                Search
+            </md-button>
+        </div>
+    </form>
+</md-content>
+<div class="md-padding" layout="row" layout-wrap>
+    <md-card flex="30" ng-repeat="hotelInfo in vm.filteredHotels">
+      <img ng-src="{{hotelInfo.imagePath}}" class="md-card-image" alt="Hotel image">
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">{{hotelInfo.hotel.name}}</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+        <p>
+          {{hotelInfo.hotel.city}}
+        </p>
+      </md-card-content>
+      <md-card-actions layout="row" layout-align="end center">
+        <md-button class="md-primary md-raised" ng-href="#/hotel/{{hotelInfo.hotel.hotel_id}}">View Details </md-button>
+      </md-card-actions>
+    </md-card>
+</div>

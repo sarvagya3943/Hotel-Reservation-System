@@ -1,0 +1,160 @@
+<div layout="column" layout-fill>
+    <md-toolbar>
+        <div ng-if="!vm.isLoggedIn"class="md-toolbar-tools">
+            <a  href = "#/" md-truncate flex class="logo">
+                <svg width="87" height="30" viewBox="0 0 87 30" xmlns="http://www.w3.org/2000/svg"><path d="M58.7.2H48l-4.7 9-4.6-9H28l10 20v9.3h10.6V20L58.6.3zm13-.2c-8.4 0-15 6.7-15 15s6.6 15 15 15c8.2 0 15-6.7 15-15s-6.8-15-15-15zm0 20.3c-3 0-5.5-2.4-5.5-5.3 0-3 2.4-5.3 5.4-5.3 3 0 5.3 2.3 5.3 5.3s-2.5 5.3-5.4 5.3zM15 0C6.7 0 0 6.7 0 15s6.7 15 15 15 15-6.7 15-15S23.3 0 15 0zm0 20.3c-3 0-5.3-2.4-5.3-5.3 0-3 2.4-5.3 5.3-5.3 3 0 5.3 2.3 5.3 5.3S18 20.3 15 20.3z"></path></svg>
+            </a>
+            <md-button class="md-raised" href="#/login">
+                Login
+            </md-button>
+            <md-button class="md-raised" href="#/register">
+                Register
+            </md-button>
+        </div>
+        <div ng-if="vm.isLoggedIn"class="md-toolbar-tools">
+            <a  href = "#/" md-truncate flex class="logo">
+                <svg width="87" height="30" viewBox="0 0 87 30" xmlns="http://www.w3.org/2000/svg"><path d="M58.7.2H48l-4.7 9-4.6-9H28l10 20v9.3h10.6V20L58.6.3zm13-.2c-8.4 0-15 6.7-15 15s6.6 15 15 15c8.2 0 15-6.7 15-15s-6.8-15-15-15zm0 20.3c-3 0-5.5-2.4-5.5-5.3 0-3 2.4-5.3 5.4-5.3 3 0 5.3 2.3 5.3 5.3s-2.5 5.3-5.4 5.3zM15 0C6.7 0 0 6.7 0 15s6.7 15 15 15 15-6.7 15-15S23.3 0 15 0zm0 20.3c-3 0-5.3-2.4-5.3-5.3 0-3 2.4-5.3 5.3-5.3 3 0 5.3 2.3 5.3 5.3S18 20.3 15 20.3z"></path></svg>
+            </a>
+            <md-icon ng-if="vm.user.gender === 'male'" md-svg-src="static/images/man.svg" ></md-icon>
+            <md-icon ng-if="vm.user.gender !== 'male'" md-svg-src="static/images/girl.svg" ></md-icon>
+            <a ng-href="#/user/{{vm.user.userId}}" class="mr-sm-2">{{vm.user.firstname + ' ' + vm.user.lastname}}</a>
+            <md-button class="md-raised" href="#/" ng-click="vm.logout()">
+                Logout
+            </md-button>
+        </div>
+    </md-toolbar>
+</div>
+
+<md-content class="md-padding" layout="row" layout-align="center" layout-wrap>
+    <md-card flex="50" >
+        <md-card-header>
+        	<md-card-avatar ng-if="vm.user.gender === 'male'">
+                <img class="md-user-avatar" src="static/images/man.svg"/>
+            </md-card-avatar>
+            <md-card-avatar ng-if="vm.user.gender !== 'male'">
+                <img class="md-user-avatar" src="static/images/girl.svg"/>
+            </md-card-avatar>
+            <md-card-header-text>
+
+                <span class="md-title">User Details</span>
+            </md-card-header-text>
+        </md-card-header>
+        <md-card-content>
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th>
+                            First Name
+                        </th>
+                        <td>
+                            {{vm.user.firstname}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Last name
+                        </th>
+                        <td>
+                            {{vm.user.lastname}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Gender
+                        </th>
+                        <td>
+                            {{vm.user.gender}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Email
+                        </th>
+                        <td>
+                            {{vm.user.email}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Admin Status
+                        </th>
+                        <td ng-if="vm.user === null">
+
+                        </td>
+                        <td ng-if="vm.user !== null && vm.user.admin">
+                            YES
+                        </td>
+                        <td ng-if="vm.user !== null && !vm.user.admin">
+                            NO
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </md-card-content>
+    </md-card>
+
+</md-content>
+
+
+<md-content class="md-padding" layout="row" layout-align="center" layout-wrap>
+    <md-card flex="70" >
+        <md-card-header>
+            <md-card-header-text>
+                <span class="md-title">Reservation History</span>
+            </md-card-header-text>
+        </md-card-header>
+        <md-card-content>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">checkInDate</th>
+                    <th scope="col">checkOutDate</th>
+                    <th scope="col">Cost</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">rooms</th>
+                    <th scope="col">status</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="elem in vm.filteredReservations">
+                        <td>
+                            {{elem.fromDate}}
+                        </td>
+                        <td>
+                            {{elem.toDate}}
+                        </td>
+                        <td>
+                            {{elem.total_price}}
+                        </td>
+                        <td>
+                            {{elem.roomType}}
+                        </td>
+                        <td>
+                            {{elem.roomCount}}
+                        </td>
+                        <td>
+                            {{elem.status}}
+                        </td>
+                        <td ng-if="elem.status === 'active'">
+                            <md-button class="md-primary md-raised" ng-click="vm.cancelBooking($index)">
+                                Cancel
+                            </md-button>
+                        </td>
+                        <td ng-if="elem.status !== 'active'">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div layout="row" layout-align="center">
+                <md-button class="md-raised" ng-click="vm.getPrevious()">
+                    Prev
+                </md-button>
+                <md-button class="md-raised" ng-click="vm.getNext()">
+                    Next
+                </md-button>
+            </div>
+        </md-card-content>
+    </md-card>
+
+</md-content>

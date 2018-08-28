@@ -1,0 +1,87 @@
+
+<div layout="column" layout-fill>
+    <md-toolbar>
+        <div ng-if="!vm.isLoggedIn"class="md-toolbar-tools">
+            <a  href = "#/" md-truncate flex>
+                OYO
+            </a>
+            <md-button class="md-raised" href="#/login">
+                Login
+            </md-button>
+            <md-button class="md-raised" href="#/register">
+                Register
+            </md-button>
+        </div>
+        <div ng-if="vm.isLoggedIn"class="md-toolbar-tools">
+            <a  href = "#/" md-truncate flex>
+                OYO
+            </a>
+            <a ng-href="#/user/{{vm.user.userId}}" class="mr-sm-2">{{vm.user.firstname + ' ' + vm.user.lastname}}</a>
+            <md-button class="md-raised" href="#/" ng-click="vm.logout()">
+                Logout
+            </md-button>
+        </div>
+    </md-toolbar>
+</div>
+<body >
+<div id="bookListWrapper"
+        style="width: 50%; margin: auto; margin-top: 40px;">
+        <ul class="list-unstyled">
+            <li class="book" ng-repeat="hotelInfo in vm.hotel"
+                style='float: left; display: inline-block; margin-right: 20px; color: grey'>
+                <div class="book-details clearfix">
+                    <h5>Room Type : {{hotelInfo.roomType}} </h5>
+                    <h5>Max Extra Guests = {{hotelInfo.maxExtraGuests}}</h5>
+                    <p><h5>Extra Guest Price = {{hotelInfo.extraGuestPrice}}</h5></p>
+                    <p><h5>Extra Guest Price = {{hotelInfo.price}}</h5></p>
+                    
+                </div>
+            </li>
+        </ul>
+    </div>
+    </body>
+<div class="col-md-6 col-md-offset-3"id="register_form">
+    <h2>Update Room Properties for Room Type AC</h2>
+    <form name="form" ng-submit="vm.changeRoom()" role="form">
+        <div class="form-group">
+            <label for="hotelId">Hotel ID</label>
+            <input type="text" ng-model="vm.room.hotelId" placeholder="Enter Hotel_Id" class="form-control" name="hotelId" id="hotelId"/>
+        </div>
+         <div class="form-group">
+            <label for="maxA">New Max Extra Guests</label>
+            <input type="text" ng-model="vm.room.maxA" class="form-control" name="maxA" id="maxA" placeholder="Enter New Max Extra Guests" required/>
+            <span ng-show="form.maxA.$dirty && form.maxA.$error.required" >Required field</span>
+        </div>
+        <div class="form-group">
+            <label for="priceEA">New Extra Guest Price</label>
+            <input type="text" ng-model="vm.room.priceEA" class="form-control" name="priceEA" id="priceEA" placeholder="Enter New Extra Guest price" required/>
+            <span ng-show="form.priceEA.$dirty && form.priceEA.$error.required" >Required field</span>
+        </div>
+        <div class="form-group">
+            <label for="price">New Room Price</label>
+            <input type="text" ng-model="vm.room.price" class="form-control" name="price" id="price" placeholder="Enter New Room Price" required/>
+            <span ng-show="form.price.$dirty && form.price.$error.required" >Required field</span>
+        </div>
+        <h2>Update Room Properties for Room Type NON-AC</h2>
+        <div class="form-group">
+            <label for="maxB">New Max Extra Guests</label>
+            <input type="text" ng-model="vm.room.maxB" class="form-control" name="maxB" id="maxB" placeholder="Enter New Max Extra Guests" required/>
+            <span ng-show="form.maxB.$dirty && form.maxB.$error.required" >Required field</span>
+        </div>
+        <div class="form-group">
+            <label for="priceEB">New Extra Guest Price</label>
+            <input type="text" ng-model="vm.room.priceEB" class="form-control" name="priceEB" id="priceEB" placeholder="Enter New Extra Guest price" required/>
+            <span ng-show="form.priceEB.$dirty && form.priceEB.$error.required" >Required field</span>
+        </div>
+        <div class="form-group">
+            <label for="priceB">New Room Price</label>
+            <input type="text" ng-model="vm.room.priceB" class="form-control" name="priceB" id="priceB" placeholder="Enter New Room Price" required/>
+            <span ng-show="form.priceB.$dirty && form.priceB.$error.required" >Required field</span>
+        </div>
+        <div class="form-actions">
+
+            <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+    </form>
+</div>
+<br><br><br><br>

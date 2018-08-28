@@ -1,0 +1,20 @@
+<h3>{{vm.jsonInfo[0].hotel.name}} , {{vm.jsonInfo[0].hotel.city}}</h3>
+<div class="container">
+    <ul>
+        <!-- <li ng-repeat="elem in vm.jsonInfo">
+            {{elem.roomType.type}}
+            <input ng-model="vm.bookingInfo[elem.roomType.type].rooms" type="number" min="0" name="rooms" placeholder="Enter rooms needed"/>
+            <input ng-model="vm.bookingInfo[elem.roomType.type].guests" type="number" min="0" name="guests" placeholder="Enter extra guests"/>
+        </li> -->
+        <li ng-repeat="elem in vm.jsonInfo">
+            {{elem.roomType.type}}
+            <input ng-model="vm.bookingInfo[$index].rooms" type="number" min="0" name="rooms" placeholder="Enter rooms needed"/>
+            <input ng-model="vm.bookingInfo[$index].guests" type="number" min="0" name="guests" placeholder="Enter extra guests"/>
+        </li>
+    </ul>
+    <p>
+        {{vm.bookingInfo | json}}
+        Total cost : {{vm.getTotalCost()}}
+    </p>
+    <a ng-href="#/hotel/book/{{vm.jsonInfo[0].hotel.hotel_id}}" ng-click="vm.passBookingInfo()">Book</a>
+</div>

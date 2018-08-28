@@ -1,0 +1,87 @@
+
+<div layout="column" layout-fill>
+    <md-toolbar>
+        <div ng-if="!vm.isLoggedIn"class="md-toolbar-tools">
+            <a  href = "#/" md-truncate flex>
+                OYO
+            </a>
+            <md-button class="md-raised" href="#/login">
+                Login
+            </md-button>
+            <md-button class="md-raised" href="#/register">
+                Register
+            </md-button>
+        </div>
+        <div ng-if="vm.isLoggedIn"class="md-toolbar-tools">
+            <a  href = "#/" md-truncate flex>
+                OYO
+            </a>
+            <a ng-href="#/user/{{vm.user.userId}}" class="mr-sm-2">{{vm.user.firstname + ' ' + vm.user.lastname}}</a>
+            <md-button class="md-raised" href="#/" ng-click="vm.logout()">
+                Logout
+            </md-button>
+        </div>
+    </md-toolbar>
+</div>
+
+<br><br><br><br>
+<div class="col-md-6 col-md-offset-3" id="Add Hotel Form">
+	<h2><strong>Add Hotel</strong></h2>
+	<form name="form" ng-submit="vm.addHotel()" role="form">
+		<div class="form-group">
+			<label for="name">Hotel Name</label> <input type="text"
+				ng-model="vm.hotel.name" class="form-control" name="name" id="name"
+				placeholder="Enter Hotel Name" required /> <span
+				ng-show="form.name.$dirty && form.name.$error.required">Hotel
+				name is required</span>
+		</div>
+		<div class="form-group">
+			<label for="lastname">City</label> <input type="text" name="city"
+				ng-model="vm.hotel.city" class="form-control" id="city"
+				placeholder="Enter City Name" required /> <span
+				ng-show="form.city.$dirty && form.city.$error.required">City
+				Name required</span>
+		</div>
+		<div class="form-group">
+			<label for="roomType">Room Type</label> <input type="text"
+				name="roomType" ng-model="vm.hotel.roomType" class="form-control"
+				id="roomType" placeholder="Enter Room Type" required /> <span
+				ng-show="form.roomType.$dirty && form.roomType.$error.required">Room
+				Type is required</span>
+
+		</div>
+		<div class="form-group">
+			<label for="capacity">Room capacity</label> <input type="text"
+				ng-model="vm.hotel.capacity" class="form-control" name="capacity" id="capacity"
+				placeholder="Number Of Rooms" required /> <span
+				ng-show="form.capacity.$dirty && form.capacity.$error.required">Room Ccunt required</span>
+		</div>
+		<div class="form-group">
+			<label for="egprice">Extra Guest Price</label> <input type="text"
+				ng-model="vm.hotel.extraGuestPrice" class="form-control" name="egprice" id="egprice"
+				placeholder="Enter Extra Guest Price" required /> <span
+				ng-show="form.egprice.$dirty && form.egprice.$error.required">Extra Guest Price is required</span>
+		</div>
+		<div class="form-group">
+			<label for="maxeg">Maximum Extra Guests</label> <input type="text"
+				ng-model="vm.hotel.maxExtraGuests" class="form-control" name="maxeg" id="maxeg"
+				placeholder="Enter maximum extra guests" required /> <span
+				ng-show="form.maxeg.$dirty && form.maxeg.$error.required">Maximum Extra Guests is Required</span>
+		</div>
+
+
+		<div class="form-group">
+			<label for="price">Room Price</label> <input type="text" name="price"
+				ng-model="vm.hotel.price" class="form-control" id="price"
+				placeholder="Enter Price Of the Room" required /> <span
+				ng-show="form.price.$dirty && form.price.$error.required">Price
+				is required</span>
+		</div>
+
+		<div class="form-actions">
+			<button type="submit" class="btn btn-primary">Add Hotel</button>
+			<a href="#/admin" class="btn btn-link">Cancel</a>
+		</div>
+	</form>
+</div>
+<div><h2>{{vm.hello.message}}</h2></div>

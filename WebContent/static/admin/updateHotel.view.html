@@ -1,0 +1,30 @@
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#/">OYO</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <!-- Include any links if you want to -->
+                <!--<li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li> -->
+            </ul>
+            <form ng-if="vm.isLoggedIn" class="form-inline mt-2 mt-md-0">
+                <a ng-href="#/user/{{vm.user.userId}}" class="mr-sm-2">{{vm.user.firstname + ' ' + vm.user.lastname}}</a>
+                <a href="#/" class="btn btn-outline-success my-2 my-sm-0" ng-click="vm.logout()">Logout</a>
+            </form>
+        </div>
+    </nav>
+</header>
+
+<div><h2><h3>{{vm.hotelData.name}}</h3>
+<p>{{hotelInfo.city}}</p>
+<p>{{hotelInfo.hotel_id}}</p></h2></div>

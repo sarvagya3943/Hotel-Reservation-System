@@ -1,0 +1,85 @@
+<div layout="column" layout-fill>
+    <md-toolbar>
+        <div ng-if="!vm.isLoggedIn"class="md-toolbar-tools">
+            <a  href = "#/" md-truncate flex>
+                OYO
+            </a>
+            <md-button class="md-raised" href="#/login">
+                Login
+            </md-button>
+            <md-button class="md-raised" href="#/register">
+                Register
+            </md-button>
+        </div>
+        <div ng-if="vm.isLoggedIn"class="md-toolbar-tools">
+            <a  href = "#/" md-truncate flex>
+                OYO
+            </a>
+            <a ng-href="#/user/{{vm.user.userId}}" class="mr-sm-2">{{vm.user.firstname + ' ' + vm.user.lastname}}</a>
+            <md-button class="md-raised" href="#/" ng-click="vm.logout()">
+                Logout
+            </md-button>
+        </div>
+    </md-toolbar>
+
+
+<md-content class="md-padding" layout="row" layout-align="center" layout-wrap>
+    <md-card flex="70" >
+        <md-card-header>
+            <md-card-header-text>
+                <span class="md-title">Reservations For this Resort</span>
+            </md-card-header-text>
+        </md-card-header>
+        <md-card-content>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                  <tr>
+                     <th scope="col">HotelId</th>
+                      <th scope="col">userid</th>
+                    <th scope="col">checkInDate</th>
+                    <th scope="col">checkOutDate</th>
+                    <th scope="col">Cost</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">rooms</th>
+                    <th scope="col">status</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="elem in vm.bookings">
+                        <td>
+                            {{elem.hotelId}}
+                        </td>
+                        <td>
+                            {{elem.userId}}
+                        </td>
+                        <td>
+                            {{elem.fromDate}}
+                        </td>
+                        <td>
+                            {{elem.toDate}}
+                        </td>
+                        <td>
+                            {{elem.total_price}}
+                        </td>
+                        <td>
+                            {{elem.roomType}}
+                        </td>
+                        <td>
+                            {{elem.roomCount}}
+                        </td>
+                        <td>
+                            {{elem.status}}
+                        </td>
+                        <td ng-if="elem.status === 'active'">
+                            <md-button class="md-primary md-raised" ng-click="vm.cancelBooking($index)">
+                                Cancel
+                            </md-button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </md-card-content>
+    </md-card>
+
+</md-content>

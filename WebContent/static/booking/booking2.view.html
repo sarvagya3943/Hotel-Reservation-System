@@ -1,0 +1,19 @@
+{{vm.jsonInfo}}
+<br />
+<hr />
+{{vm.bookingInfo}}
+<hr />
+{{vm.reservations | json}}
+<hr />
+{{ vm.search | json}}
+<!--
+
+    credit/debit card stuff goes here
+
+
+ -->
+
+ <form ng-submit="vm.reserve()">
+     <button type="submit">BOOK</button>
+ </form>
+ {{vm.bookingStatus}}

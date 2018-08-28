@@ -1,0 +1,107 @@
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#/">OYO</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <!-- Include any links if you want to -->
+                <!--<li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li> -->
+            </ul>
+            <form ng-if="!vm.isLoggedIn" class="form-inline mt-2 mt-md-0">
+                <a href="#/login" class="btn btn-outline-success mr-sm-2">Login</a>
+                <a href="#/register" class="btn btn-outline-success my-2 my-sm-0">Register</a>
+            </form>
+            <form ng-if="vm.isLoggedIn" class="form-inline mt-2 mt-md-0">
+                <a ng-href="#/user/{{vm.user.userId}}" class="mr-sm-2">{{vm.user.firstname + ' ' + vm.user.lastname}}</a>
+                <a href="#/login" class="btn btn-outline-success my-2 my-sm-0" ng-click="vm.logout()">Logout</a>
+            </form>
+        </div>
+    </nav>
+</header>
+
+<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="2000">
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img class="first-slide" src="static/images/hotel-1.jfif" alt="First slide">
+      </div>
+      <div class="carousel-item">
+        <img class="second-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Second slide">
+      </div>
+      <div class="carousel-item">
+        <img class="third-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Third slide">
+      </div>
+    </div>
+    <!--<a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a> -->
+</div>
+
+
+
+
+<div class="col-md-6 col-md-offset-3" id="search_form">
+    <h2>Search</h2>
+    <form name="form" ng-submit="vm.searchHotels()" role="form">
+        <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" name="city" ng-model="vm.search.city" class="form-control" id="city"  placeholder="Enter City" required/>
+            <span ng-show="form.city.$dirty && form.city.$error.required" >City is required</span>
+        </div>
+        <div class="form-group">
+            <label for="checkIn">CheckIn date</label>
+            <input type="date" name="checkIn" ng-model="vm.search.checkIn" class="form-control" id="checkIn" placeholder="Enter CheckIn Date" ng-value="vm.search.checkInStr" min="{{vm.date | date:'yyyy-MM-dd'}}" required/>
+            <span ng-show="form.checkIn.$dirty && form.checkIn.$error.required" >CheckIn date is required</span>
+        </div>
+        <div class="form-group">
+            <label for="checkOut">CheckOut date</label>
+            <input type="date" name="checkOut" ng-model="vm.search.checkOut" class="form-control" id="checkOut" placeholder="Enter CheckOut date" ng-value="vm.search.checkOutStr" min="{{vm.date | date:'yyyy-MM-dd'}}" required/>
+            <span ng-show="form.checkOut.$dirty && form.checkOut.$error.required" >CheckOut date is required</span>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+</div>
+
+
+<p>
+    {{vm.search.city}}
+    {{vm.search.checkIn | date : 'yyyy-MM-dd'}}
+    {{vm.search.checkIn | date : 'MM'}}
+    {{vm.search.checkIn | date : 'dd'}}
+    {{vm.search.checkOut | date : 'yyyy'}}
+    {{vm.search.checkOut | date : 'MM'}}
+    {{vm.search.checkOut | date : 'dd'}}
+</p>
+<hr />
+<p>
+    {{vm.search | json}}
+</p>
+
+<ul>
+    <li ng-repeat="hotelInfo in vm.allHotels" >
+        index is {{$index}}
+        <a ng-href="#/hotel/{{hotelInfo.hotel.hotel_id}}">View Details</a>
+        {{hotelInfo | json}}
+    </li>
+</ul>
